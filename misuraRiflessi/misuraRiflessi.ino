@@ -38,14 +38,16 @@ void loop() {
   stato = LOW;
   tRandom = random(1000, 4000);
   delay(tRandom);
-  tone(buzzer, HIGH);
+  digitalWrite(buzzer, HIGH);
   while (stato == LOW)
   {
     stato = digitalRead(button);
     tempoSuono = millis();
     if (stato == HIGH)
     {
-      digitalWrite(buzzer, LOW); 
+      digitalWrite(buzzer, LOW);
+      tempoSuono = tempoSuono-tempoLed-tRandom;//Errore
+      Serial.println(tempoSuono); 
     }
   }
 }
