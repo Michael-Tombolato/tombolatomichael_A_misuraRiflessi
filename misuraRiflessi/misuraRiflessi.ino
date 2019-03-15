@@ -11,7 +11,8 @@ int d5 = 5;
 int d6 = 6;
 int d7 = 7;
 int stato;
-int tRandom;
+int tRandomLed;
+int tRandomSuono;
 int tempoLed;
 int tempoSuono;
 void setup() {
@@ -25,8 +26,9 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   stato = LOW;
-  tRandom = random(1000, 4000);
-  delay(tRandom);
+  tRandomLed = 0;
+  tRandomLed = random(1000, 4000);
+  delay(tRandomLed);
   digitalWrite(led, HIGH);
   tempoLed = 0;
   while (stato == LOW)
@@ -36,7 +38,7 @@ void loop() {
     if (stato == HIGH)
     {
       digitalWrite(led, LOW);
-      tempoLed = millis() - tRandom;
+      tempoLed = millis() - tRandomLed;
       lcd.setCursor(0,0);
       lcd.print(tempoLed);
       if (tempoLed > 5000)
@@ -52,8 +54,9 @@ void loop() {
     }
   }
   stato = LOW;
-  tRandom = random(1000, 4000);
-  delay(tRandom);
+  tRandomSuono = 0;
+  tRandomSuono = random(1000, 4000);
+  delay(tRandomSuono);
   digitalWrite(buzzer, HIGH);
   tempoSuono = 0;
   while (stato == LOW)
@@ -62,7 +65,7 @@ void loop() {
     if (stato == HIGH)
     {
       digitalWrite(buzzer, LOW);
-      tempoSuono = millis() - tRandom;
+      tempoSuono = millis() - tRandomLed - tRandomSuono;
       lcd.setCursor(0, 1);
       lcd.print(tempoSuono);
       if (tempoSuono > 5000)
