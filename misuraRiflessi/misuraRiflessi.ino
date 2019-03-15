@@ -28,23 +28,25 @@ void loop() {
   tRandom = random(1000, 4000);
   delay(tRandom);
   digitalWrite(led, HIGH);
+  tempoLed = 0;
   while (stato == LOW)
   {
+    lcd.clear();
     stato = digitalRead(button);
-    tempoLed = millis();
     if (stato == HIGH)
     {
       digitalWrite(led, LOW);
       tempoLed = millis() - tRandom;
       lcd.setCursor(0,0);
       lcd.print(tempoLed);
-      lcd.setCursor(0,1);
       if (tempoLed > 5000)
       {
+        lcd.setCursor(13,0);
         lcd.print("Bad");
       }
       else
       {
+        lcd.setCursor(12,0);
         lcd.print("Well");
       }
     }
@@ -53,23 +55,24 @@ void loop() {
   tRandom = random(1000, 4000);
   delay(tRandom);
   digitalWrite(buzzer, HIGH);
+  tempoSuono = 0;
   while (stato == LOW)
   {
     stato = digitalRead(button);
-    tempoSuono = millis();
     if (stato == HIGH)
     {
       digitalWrite(buzzer, LOW);
-      tempoSuono = millis() - tRandom - tempoLed;
-      lcd.setCursor(0, 0);
+      tempoSuono = millis() - tRandom;
+      lcd.setCursor(0, 1);
       lcd.print(tempoSuono);
-      lcd.setCursor(0,1);
       if (tempoSuono > 5000)
       {
+        lcd.setCursor(13,1);
         lcd.print("Bad");
       }
       else
       {
+        lcd.setCursor(12,1);
         lcd.print("Well");
       }
     }
