@@ -26,22 +26,32 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   stato = LOW;
-  tRandomLed = 0;
+  lcd.setCursor(0,0);
+  lcd.print("Clicca");
+  while (stato == LOW)
+  {
+    if (digitalRead(button) == HIGH)
+    {
+      stato = HIGH;
+    }
+  }
+  lcd.clear();
+  stato = LOW;
+  //tRandomLed = 0;
   tRandomLed = random(1000, 4000);
   delay(tRandomLed);
   digitalWrite(led, HIGH);
-  tempoLed = 0;
+  tempoLed = millis();
   while (stato == LOW)
   {
-    lcd.clear();
     stato = digitalRead(button);
     if (stato == HIGH)
     {
       digitalWrite(led, LOW);
-      tempoLed = millis() - tRandomLed;
+      tempoLed = millis() - tempoLed;
       lcd.setCursor(0,0);
       lcd.print(tempoLed);
-      if (tempoLed > 5000)
+      if (tempoLed > 500)
       {
         lcd.setCursor(13,0);
         lcd.print("Bad");
@@ -54,21 +64,20 @@ void loop() {
     }
   }
   stato = LOW;
-  tRandomSuono = 0;
   tRandomSuono = random(1000, 4000);
   delay(tRandomSuono);
   digitalWrite(buzzer, HIGH);
-  tempoSuono = 0;
+  tempoSuono = millis();
   while (stato == LOW)
   {
     stato = digitalRead(button);
     if (stato == HIGH)
     {
       digitalWrite(buzzer, LOW);
-      tempoSuono = millis() - tRandomLed - tRandomSuono;
+      tempoSuono = millis() - tempoSuono;
       lcd.setCursor(0, 1);
       lcd.print(tempoSuono);
-      if (tempoSuono > 5000)
+      if (tempoSuono > 500)
       {
         lcd.setCursor(13,1);
         lcd.print("Bad");
@@ -80,4 +89,6 @@ void loop() {
       }
     }
   }
+  delay(5000);
+  lcd.clear();
 }
