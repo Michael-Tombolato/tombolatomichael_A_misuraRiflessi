@@ -37,7 +37,6 @@ void loop() {
   }
   lcd.clear();
   stato = LOW;
-  //tRandomLed = 0;
   tRandomLed = random(1000, 4000);
   delay(tRandomLed);
   digitalWrite(led, HIGH);
